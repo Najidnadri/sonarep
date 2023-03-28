@@ -16,7 +16,9 @@ export default function Home() {
         spawnedsocket.on('connect', () => {
           console.log('web socket connected')
         })
-
+        spawnedsocket.on('update-input', msg => {
+          console.log(msg);
+        })
       }
 
     })
