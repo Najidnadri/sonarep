@@ -1,13 +1,22 @@
 import Head from 'next/head'
 import InputCard from '@/components/sections/home/inputCard'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import io from 'socket.io-client';
 import { SocketContext } from '@/context/socket'
+import LoadingScreen from '@/components/sections/home/loadingScreen';
 
 export default function Home() {
   useEffect(() => socketInit(), [])
-  let {socket, setSocket} = useContext(SocketContext);
 
+  /*
+    VARIABLES
+  */
+  let {socket, setSocket} = useContext(SocketContext);
+  let [loading, setloading] = useState(false);
+
+  /*
+    ONMOUNTED
+  */
   const socketInit = () => {
     fetch('api/socket').then(() => {
       if (setSocket) {
@@ -24,6 +33,14 @@ export default function Home() {
     })
   }
 
+  /*
+    EVENT HANDLER
+  */
+  let onSubmit = (url: string) => {
+    setloading(true);
+    socket?.emit('startAnalyze', url)
+  }
+
   return (
     <>
       <Head>
@@ -33,7 +50,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <InputCard />
+        { loading && <LoadingScreen /> }
+        { !loading && <InputCard handleSubmit={onSubmit}/> }
       </main>
     </>
   )
