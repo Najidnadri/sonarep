@@ -1,11 +1,27 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import Test from '@/components/test'
-import Test2 from '@/components/sections/home/test2'
-
+import InputCard from '@/components/sections/home/inputCard'
+import { useContext, useEffect } from 'react'
+import io from 'socket.io-client';
+import { SocketContext } from '@/context/socket'
 
 export default function Home() {
+  useEffect(() => socketInit(), [])
+  let {socket, setSocket} = useContext(SocketContext);
+
+  const socketInit = () => {
+    fetch('api/socket').then(() => {
+      if (setSocket) {
+        let spawnedsocket = io();
+        setSocket(spawnedsocket);
+        spawnedsocket.on('connect', () => {
+          console.log('web socket connected')
+        })
+
+      }
+
+    })
+  }
+
   return (
     <>
       <Head>
@@ -15,8 +31,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Test></Test>
-        <Test2></Test2>
+        <InputCard />
       </main>
     </>
   )

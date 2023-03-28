@@ -70,15 +70,15 @@ input, textarea {
 }
 
 .black-bg {
-    background-color: var(--black-color);
+    background-color: var(--black);
 }
 
 .black {
-    color: var(--black-color);
+    color: var(--black);
 }
 
 .white-bg {
-    background-color: var(--white-color);
+    background-color: var(--white);
 }
 
 .white {
