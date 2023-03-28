@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    font-family: 'Epilogue';
+    perspective: 1px;
+    perspective-origin: 0 0;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p, li {
+    margin: 0;
+}
+
+
+button {
+    border-radius: 4px;
+    cursor: pointer !important;
+
+    font-size: 18px !important;
+    font-weight: 700 !important;
+
+    transition: all 0.3s ease;
+}
+
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 10px 25px -4px, rgba(255, 255, 255, 0.04) 0px 10px 10px -5px;
+}
+
+button:active {
+    transform: scale(1.02) translateY(-1px);
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 10px 25px -4px, rgba(255, 255, 255, 0.04) 0px 10px 10px -5px;
+}
+
+
+a {
+    cursor: pointer;
+    color: currentColor;
+}
+
+input, textarea {
+    font-family: 'Epilogue';
+}
+
+.primary-bg {
+    background-color: var(--primary-color);
+}
+
+.primary {
+    color: var(--primary-color);
+}
+
+.secondary-bg {
+    background-color: var(--secondary-color);
+}
+
+.secondary {
+    color: var(--secondary-color);
+}
+
+.black-bg {
+    background-color: var(--black-color);
+}
+
+.black {
+    color: var(--black-color);
+}
+
+.white-bg {
+    background-color: var(--white-color);
+}
+
+.white {
+    color: var(--white);
+}
+
+
+.font-oswald {
+    font-family: 'Oswald';
+}
+
+
+
+/*
+.hero-view {
+    width: 100%;
+    height: 100vh;
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+
+@media only screen and (min-width: 1080px) {
+
+}
+*/

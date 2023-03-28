@@ -1,0 +1,68 @@
+:root {
+  --primary-color: #f44c4e;
+  --secondary-color: #4D3154;
+
+  --white: white;
+  --black: #2C3333;
+  --grey: #403b3b;
+} 
+
+
+@media (prefers-color-scheme: dark) {
+:root {
+  --primary-color: #f44c4e;
+  --secondary-color: #4D3154;
+
+  --white: white;
+  --black: #2C3333;
+  --grey: #403b3b;
+}
+}
+
+@media (prefers-color-scheme: light) {
+:root {
+  --primary-color: #f44c4e;
+  --secondary-color: #4D3154;
+
+  --white: white;
+  --black: #2C3333;
+  --grey: #403b3b;
+}
+}
+
+
+
+
+:root {
+    /*1rem = 10px*/
+    font-size: 62.5%; 
+}
+  
+@font-face {
+  font-family: "Epilogue";
+  src: url("./fonts/Epilogue-regular.ttf");
+  font-weight: 125 950;
+  font-style: normal;
+  font-stretch: 75% 125%;
+  font-display: swap;
+} 
+
+@font-face {
+  font-family: "Epilogue";
+  src: url("./fonts/Epilogue-italic.ttf");
+  font-weight: 125 950;
+  font-style: italic;
+  font-stretch: 75% 125%;
+  font-display: swap;
+} 
+
+@font-face {
+  font-family: "Oswald";
+  src: url("./fonts/Oswald.ttf");
+  font-weight: 125 950;
+  font-style: normal;
+  font-stretch: 75% 125%;
+  font-display: swap;
+} 
+  
+  
