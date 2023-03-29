@@ -43,7 +43,7 @@ export default function InputCard(props: CardProps) {
                      />
                      {error && <p className="text-[16px] white mt-5px">Link must start with 'https://github.com/'</p>}
 
-                    <button className="w-[100%] max-w-[200px] mt-[30px] primary-bg px-[15px] py-[10px]" onClick={startAnalyze   }>
+                    <button className="w-[100%] max-w-[200px] mt-[30px] primary-bg px-[15px] py-[10px]" onClick={startAnalyze}>
                         Analyze
                     </button>
                     

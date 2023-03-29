@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from 'react'
 import io from 'socket.io-client';
 import { SocketContext } from '@/context/socket'
 import LoadingScreen from '@/components/sections/home/loadingScreen';
+import { useRouter } from "next/router"
+import { Analysis, AnalysisContext } from '@/context/analysisContext';
 
 export default function Home() {
   useEffect(() => socketInit(), [])
@@ -12,7 +14,10 @@ export default function Home() {
     VARIABLES
   */
   let {socket, setSocket} = useContext(SocketContext);
+  let { analysis, setAnalysis } = useContext(AnalysisContext);
   let [loading, setloading] = useState(false);
+  let [progress, setProgress] = useState<string | null>(null);
+  let router = useRouter();
 
   /*
     ONMOUNTED
@@ -25,8 +30,25 @@ export default function Home() {
         spawnedsocket.on('connect', () => {
           console.log('web socket connected')
         })
-        spawnedsocket.on('update-input', msg => {
-          console.log(msg);
+
+        spawnedsocket.on('analyzeResponse', msg => {
+          let response: Analysis = JSON.parse(msg);
+          console.log("Analyze Response Receied. Status: ", response.__status__);
+          if (response.__status__ === '200' || parseInt(response.__status__) < 201) {
+            setloading(false);
+            setAnalysis!(response);
+            router.push('/response');
+          } else {
+            setloading(false);
+            alert('Something Went Wrong when Analyzing')
+          }
+        })
+
+        spawnedsocket.on('analyzeProgress', msg => {
+          setProgress(msg);
+          if (msg === 'Complete Deletion') {
+            setProgress(null);
+          }
         })
       }
 
@@ -38,7 +60,9 @@ export default function Home() {
   */
   let onSubmit = (url: string) => {
     setloading(true);
-    socket?.emit('startAnalyze', url)
+    socket!.emit('startAnalyze', JSON.stringify({
+      url: url
+    }))
   }
 
   return (
@@ -50,7 +74,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        { loading && <LoadingScreen /> }
+        { loading && <LoadingScreen progress={progress} /> }
         { !loading && <InputCard handleSubmit={onSubmit}/> }
       </main>
     </>
