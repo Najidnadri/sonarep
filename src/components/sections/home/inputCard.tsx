@@ -41,7 +41,7 @@ export default function InputCard(props: CardProps) {
                         className="w-[100%] max-w-[500px] mt-[15px] text-3xl black py-[10px] px-[15px] rounded"
                         placeholder="https://github.com/Najidnadri/sonarep"
                      />
-                     {error && <p className="text-[16px] white mt-5px">Link must start with 'https://github.com/'</p>}
+                     {error && <p className="text-[16px] white mt-5px">Link must start with &apos;https://github.com/&apos;</p>}
 
                     <button className="w-[100%] max-w-[200px] mt-[30px] primary-bg px-[15px] py-[10px]" onClick={startAnalyze}>
                         Analyze
