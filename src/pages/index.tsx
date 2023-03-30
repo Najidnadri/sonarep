@@ -7,6 +7,9 @@ import LoadingScreen from '@/components/sections/home/loadingScreen';
 import { useRouter } from "next/router"
 import { Analysis, AnalysisContext } from '@/context/analysisContext';
 import SonarLoading from '@/components/sonarLoading';
+import { login } from "../../utils/sonarAPI";
+
+
 
 export default function Home() {
   useEffect(() => socketInit(), [])
@@ -20,6 +23,7 @@ export default function Home() {
   let [progress, setProgress] = useState<string | null>(null);
   let [sonarInit, setSonatInit] = useState(true);
   let [startCmd, setStartCmd] = useState('');
+  let [startProgress, setStartProgress] = useState('init');
   let router = useRouter();
   
 
@@ -28,6 +32,7 @@ export default function Home() {
   */
   const socketInit = () => {
     fetch('api/socket').then(() => {
+
       if (setSocket) {
         let spawnedsocket = io();
         setSocket(spawnedsocket);
@@ -65,7 +70,10 @@ export default function Home() {
         spawnedsocket.on('sonarInitResp', (msg) => {
           let data = JSON.parse(msg);
           if (parseInt(data.__status__) < 201 || parseInt(data.__status__) === 409) {
-            setSonatInit(false);
+            setStartProgress('login')
+            login().then(() => {
+              setSonatInit(false);
+            })
           } else {
             alert(data.msg)
           }
@@ -94,7 +102,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        { sonarInit && <SonarLoading startCmd={startCmd}/>}
+        { sonarInit && <SonarLoading startCmd={startCmd} progress={startProgress} />}
         { loading && <LoadingScreen progress={progress} /> }
         { !loading && <InputCard handleSubmit={onSubmit}/> }
       </main>
