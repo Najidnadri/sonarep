@@ -6,6 +6,7 @@ import { SocketContext } from '@/context/socket'
 import LoadingScreen from '@/components/sections/home/loadingScreen';
 import { useRouter } from "next/router"
 import { Analysis, AnalysisContext } from '@/context/analysisContext';
+import SonarLoading from '@/components/sonarLoading';
 
 export default function Home() {
   useEffect(() => socketInit(), [])
@@ -17,7 +18,10 @@ export default function Home() {
   let { analysis, setAnalysis } = useContext(AnalysisContext);
   let [loading, setloading] = useState(false);
   let [progress, setProgress] = useState<string | null>(null);
+  let [sonarInit, setSonatInit] = useState(true);
+  let [startCmd, setStartCmd] = useState('');
   let router = useRouter();
+  
 
   /*
     ONMOUNTED
@@ -27,14 +31,17 @@ export default function Home() {
       if (setSocket) {
         let spawnedsocket = io();
         setSocket(spawnedsocket);
+        
         spawnedsocket.on('connect', () => {
-          console.log('web socket connected')
+          console.log('web socket connected');
+          spawnedsocket.emit('reqStartCmd');
+          spawnedsocket.emit('sonarQubeInit');
         })
 
         spawnedsocket.on('analyzeResponse', msg => {
           let response: Analysis = JSON.parse(msg);
           console.log("Analyze Response Receied. Status: ", response.__status__);
-          if (response.__status__ === '200' || parseInt(response.__status__) < 201) {
+          if (response.__status__ === '200' || parseInt(response.__status__!) < 201) {
             setloading(false);
             setAnalysis!(response);
             router.push('/response');
@@ -48,6 +55,19 @@ export default function Home() {
           setProgress(msg);
           if (msg === 'Complete Deletion') {
             setProgress(null);
+          }
+        })
+
+        spawnedsocket.on('respStartCmd', msg => {
+          setStartCmd(msg)
+        })
+
+        spawnedsocket.on('sonarInitResp', (msg) => {
+          let data = JSON.parse(msg);
+          if (parseInt(data.__status__) < 201 || parseInt(data.__status__) === 409) {
+            setSonatInit(false);
+          } else {
+            alert(data.msg)
           }
         })
       }
@@ -74,6 +94,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
+        { sonarInit && <SonarLoading startCmd={startCmd}/>}
         { loading && <LoadingScreen progress={progress} /> }
         { !loading && <InputCard handleSubmit={onSubmit}/> }
       </main>
