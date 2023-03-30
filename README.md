@@ -12,7 +12,7 @@ SONARQUBE assignment. Analyze any github public repo without having to save or s
 - [SonarScanner V4.8](https://docs.sonarqube.org/latest/analyzing-source-code/scanners/sonarscanner/)
 - GitCLI
 
-## RUN SONARQUBE SERVER
+## RUN SONARQUBE SERVER (FIRST TIME ONLY)
 
 - **STARTUP:** After downloaded the SonarQube, extract it anywhere you prefer and run `StartSonar.bat` file from a `Command Prompt`.
 ```
@@ -22,46 +22,42 @@ SONARQUBE assignment. Analyze any github public repo without having to save or s
 - **LOGIN:** Visit `http://127.0.0.1:9000`, a login page should be showing. use `admin` for both username & pass. You will be asked to change your password afterwards.
 - Then, you will be redirected to this project setup page
 ![Project Setup Page](./pics/sonardashbard.png)
-- **CREATE TOKEN:** Nevermind this, go straight to **Profile>My Account>Security** and create a `user token`. **Copy it somewhere else first**
+- **CREATE TOKEN:** Ignore this page and go straight to **Profile>My Account>Security** and create a `userToken`. **Copy it somewhere else first**
 ![Project Setup Page](./pics/generateToken.png)
 - **DISABLE SCM:** At the top bar, go to **Administration>SCM** and disable it.
-- Done, just let the terminal open and proceed to next step
+- Done, you can close the terminal. Make sure you have your `userToken` 
 
 ## SETUP SONARSCANNER
 - Once downloaded, extract it anywhere you prefer and make the binary `sonar-scanner.bat` inside it available at `PATH`
 
 ## NEXTJS
 
-Open another terminal and clone this repo & go into the project foler
+Open another terminal and clone this repo & go into a project foler
 ```
 git clone https://github.com/Najidnadri/sonarep
 cd sonarep
 ```
 
-Install dependencies
-```
-npm run install
-```
-
-Setup `.env`, paste the `userToken` you copied in the SonarQube
+Setup `.env` inside the sonarep folder, paste the `userToken`, **SonarQube username**, **SonarQube password** & **StartSonar file path**. Your `.env` should look like this.
 ```
 USERTOKEN=[your token here]
+SONARQUBESTARTCMD=path/to/StartSonar.bat
+NEXT_PUBLIC_USERNAME=[SonarQube Username]
+NEXT_PUBLIC_USERPASSWORD=[SonarQube Password]
 ```
 
-Run development
-```
-npm run dev
-```
+run the program
+```bash
+# First time 
+npm run setupstart
 
-Or run production preview
-```
-npm run build
+# Consecutive 
 npm run start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-And that's all. just copy and paste the github link and wait for about 60s.
+And that's all. just copy and paste the github link and wait for about 2mins.
 
 
 # FEATURES
@@ -69,7 +65,7 @@ And that's all. just copy and paste the github link and wait for about 60s.
 - [x] Working API.
 - [x] Websocket Communication
 - [x] Basic Metrics
-- [ ] Automate Sonarqube startup & auth
+- [x] Automate Sonarqube startup & auth
 - [ ] Add First-Time setup wizard / helper
 
 # IMPLEMENTATIONS

@@ -1,12 +1,13 @@
 {
   "name": "sonarep",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setupstart": "npm run install && npm run build && npm run start"
   },
   "dependencies": {
     "@types/node": "18.15.10",
