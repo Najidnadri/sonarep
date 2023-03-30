@@ -12,18 +12,18 @@ interface Measure {
 }
 
 export interface Analysis {
-    paging: {
+    paging?: {
         pageIndex: number,
         pageSize: number,
         total: number
     },
-    measures: Measure[],
-    __status__: string
+    measures?: Measure[],
+    __status__?: string
 }
 
 export interface AnalysisState {
-    analysis?: Analysis | null,
-    setAnalysis?: Dispatch<SetStateAction<Analysis | null>>
+    analysis?: Analysis,
+    setAnalysis?: Dispatch<SetStateAction<Analysis>>
 }
 
 // interface SocketState {
