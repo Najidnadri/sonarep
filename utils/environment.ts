@@ -36,5 +36,3 @@ export function setEnvValue(key: string, value: string) {
     fs.writeFileSync(tmpFolder + '\\.env', ENV_VARS.join(os.EOL));
 
 }
-
-//squ_daedc80aef1e3ad8719e6e402e2a2b2ad7fd3cc6
