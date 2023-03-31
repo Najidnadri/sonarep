@@ -22,8 +22,14 @@ git clone https://github.com/Najidnadri/sonarep
 cd sonarep
 ```
 
-- Create empty `.env` file in the rootr folder
-
+- Create `.env` file in the root folder with these fields
+```
+USERTOKEN=
+SONARQUBESTARTCMD=
+NEXT_PUBLIC_FIRSTIME=
+NEXT_PUBLIC_USERNAME=
+NEXT_PUBLIC_USERPASSWORD=
+```
 
 - run the program
 ```bash

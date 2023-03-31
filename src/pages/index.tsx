@@ -41,7 +41,7 @@ export default function Home() {
           console.log('web socket connected');
           if (process.env.NEXT_PUBLIC_FIRSTIME === 'false') {
             spawnedsocket.emit('reqStartCmd');
-            // spawnedsocket.emit('sonarQubeInit');
+            spawnedsocket.emit('sonarQubeInit');
           } else {
             router.push('/setup')
           }

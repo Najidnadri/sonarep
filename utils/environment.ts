@@ -2,7 +2,7 @@ import fs from "fs";
 import os from "os";
 
 export function setEnvValue(key: string, value: string) {
-    let tmpFolder = __dirname.replace('\\.next\\server\\pages\\api', '');
+    let tmpFolder = __dirname.replace('\\.next\\server\\chunks', '');
 
     //TODO! (CREATE .env file if there's none)
     // upsertFile(tmpFolder + '\\.env').then(() => {
@@ -36,3 +36,5 @@ export function setEnvValue(key: string, value: string) {
     fs.writeFileSync(tmpFolder + '\\.env', ENV_VARS.join(os.EOL));
 
 }
+
+//squ_daedc80aef1e3ad8719e6e402e2a2b2ad7fd3cc6
