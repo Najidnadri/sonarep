@@ -10,7 +10,7 @@ const SonarStartCmd = process.env.SONARQUBESTARTCMD!;
   START SONARQUBE INIT API
 */
 async function sonarQubeInit(socket: Socket) {
-  startSonarQube(SonarStartCmd, socket);
+  await startSonarQube(SonarStartCmd, socket);
 }
 
 /*

@@ -5,6 +5,11 @@ import { Socket } from 'socket.io';
 
 const BaseUrl = 'http://127.0.0.1:9000';
 
+interface checkCmdRespObject {
+    __status__: string,
+    msg: string
+}
+
 const execPromise = util.promisify(exec);
 
 function analyzeCommand(projectKey: string, loginToken: string, tmpDirectory: string) {
@@ -72,3 +77,7 @@ export async function startSonarQube(cmd: string, socket: Socket) {
     })
 }
 
+
+export async function checkScanner() {
+    return await execPromise('sonar-scanner.bat --version');
+}

@@ -39,8 +39,12 @@ export default function Home() {
         
         spawnedsocket.on('connect', () => {
           console.log('web socket connected');
-          spawnedsocket.emit('reqStartCmd');
-          spawnedsocket.emit('sonarQubeInit');
+          if (process.env.NEXT_PUBLIC_FIRSTIME === 'false') {
+            spawnedsocket.emit('reqStartCmd');
+            // spawnedsocket.emit('sonarQubeInit');
+          } else {
+            router.push('/setup')
+          }
         })
 
         spawnedsocket.on('analyzeResponse', msg => {
@@ -71,9 +75,9 @@ export default function Home() {
           let data = JSON.parse(msg);
           if (parseInt(data.__status__) < 201 || parseInt(data.__status__) === 409) {
             setStartProgress('login')
-            login().then(() => {
+            setTimeout(() => {
               setSonatInit(false);
-            })
+            }, 1000)
           } else {
             alert(data.msg)
           }
@@ -92,6 +96,10 @@ export default function Home() {
       url: url
     }))
   }
+
+  /*
+
+  */
 
   return (
     <>

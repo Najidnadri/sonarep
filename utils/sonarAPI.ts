@@ -3,6 +3,7 @@ const DeleteProjectUrl = "/api/projects/delete?";
 const CreateProjectUrl = "/api/projects/create?";
 const ExportFindingsUrl = '/api/measures/search_history?';
 const LoginUrl = "/api/authentication/login?";
+const checkTokenUrl = "/api/user_tokens/search"
 
 export async function deleteProject(UserToken: string) {
     let headers = new Headers();
@@ -52,23 +53,38 @@ export async function exportFindings(UserToken: string) {
     return resp
 }
 
-export async function login() {
-    let name = process.env.NEXT_PUBLIC_USERNAME;
-    let password = process.env.NEXT_PUBLIC_USERPASSWORD;
+export async function login(username?: string, pass?: string) {
+    let name = username !== undefined ? username : process.env.NEXT_PUBLIC_USERNAME;
+    let password = pass !== undefined ? pass : process.env.NEXT_PUBLIC_USERPASSWORD;
 
     if (name && password) {
-        let params = new URLSearchParams();
-        params.set('login', name);
-        params.set('password', password);
+        try {
+            let params = new URLSearchParams();
+            params.set('login', name);
+            params.set('password', password);
+        
+            let loginResp = await fetch(BaseUrl + LoginUrl + params.toString(), {
+                method: "POST",
+                mode: 'no-cors'
+            });
     
-        let loginResp = await fetch(BaseUrl + LoginUrl + params.toString(), {
-            method: "POST",
-            mode: 'no-cors'
-        });
-
-        console.log("LOGIN RESPONSE: ", loginResp.status)
-        return loginResp
+            console.log("LOGIN RESPONSE: ", loginResp.status)
+        } catch(err) {
+            alert('login or password incorrect')
+        }
     } else {
         throw Error ('missing creds');
     }
+}
+
+export async function checkToken(UserToken: string) {
+    let headers = new Headers();
+    headers.set('Authorization', `Basic ${btoa(UserToken + ':')}`);
+  
+    const resp = await fetch(BaseUrl + checkTokenUrl, {
+      method: 'GET',
+      headers: headers
+    })
+  
+    return resp
 }
