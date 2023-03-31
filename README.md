@@ -64,4 +64,8 @@ API diagram:
 ![API DIAGRAM](./pics/APIdiagram.png)
 
 
+# INSTRUCTION VIDEO
+./pics/instruction.MOV
+<video src='./pics/instruction.MOV' width=1000 />
+
 
