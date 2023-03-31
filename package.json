@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "setupstart": "next start npm install && npm run build && npm run start"
+    "setupstart": "npm install && npm run build && npm run start"
   },
   "dependencies": {
     "@types/node": "18.15.10",
