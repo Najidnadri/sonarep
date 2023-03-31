@@ -52,6 +52,7 @@ And that's all. just copy and paste the github link and wait for about 2mins.
 - [x] Basic Metrics
 - [x] Automate Sonarqube startup & auth
 - [x] Add First-Time setup wizard / helper
+- [ ] Linux Integration
 
 # IMPLEMENTATIONS
 Sonarep are meant to be used on the fly without having too much hassle on each git repo analysis. Hence, Sonarep does not keep any history of the past analysis. 
@@ -65,7 +66,7 @@ API diagram:
 
 
 # INSTRUCTION VIDEO
-./pics/instruction.MOV
+[./pics/instruction.MOV](https://github.com/Najidnadri/sonarep/blob/main/pics/instruction.MOV)
 <video src='./pics/instruction.MOV' width=1000 />
 
 
